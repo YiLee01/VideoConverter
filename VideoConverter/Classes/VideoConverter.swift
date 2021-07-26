@@ -143,8 +143,15 @@ open class VideoConverter {
         layerInstructions.setOpacity(1.0, at: .zero)
         // transform
         if var transform = self.transform {
-            if let isMirror = option?.isMirror {
-                transform = transform.scaledBy(x: -1, y: 1)
+            if let isMirror = option?.isMirror,
+               let naturalSize = naturalSize,
+               let converterDegree = self.converterDegree, isMirror {
+                transform = transform.concatenating(CGAffineTransform(a: -1.0, b: 0.0, c: 0.0, d: 1.0, tx: naturalSize.width, ty: 0.0))
+                if converterDegree == .degree0 {
+                    transform = transform.rotated(by: .pi).translatedBy(x: -naturalSize.width, y: -naturalSize.height)
+                } else if converterDegree == .degree180 {
+                    transform = transform.rotated(by: -.pi).translatedBy(x: -naturalSize.width, y: -naturalSize.height)
+                }
             }
             layerInstructions.setTransform(transform, at: .zero)
         }
