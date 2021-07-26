@@ -29,11 +29,13 @@ public struct ConverterOption {
     public var rotate: CGFloat?
     public var quality: String?
     public var isMute: Bool
+    public var isMirror: Bool
 
-    public init(trimRange: CMTimeRange?, convertCrop: ConverterCrop?, rotate: CGFloat?, quality: String?, isMute: Bool = false) {
+    public init(trimRange: CMTimeRange?, convertCrop: ConverterCrop?, rotate: CGFloat?, isMirror: Bool = false, quality: String?, isMute: Bool = false) {
         self.trimRange = trimRange
         self.convertCrop = convertCrop
         self.rotate = rotate
+        self.isMirror = isMirror
         self.quality = quality
         self.isMute = isMute
     }

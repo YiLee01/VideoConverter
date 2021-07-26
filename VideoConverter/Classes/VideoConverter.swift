@@ -142,7 +142,10 @@ open class VideoConverter {
         // opacity
         layerInstructions.setOpacity(1.0, at: .zero)
         // transform
-        if let transform = self.transform {
+        if var transform = self.transform {
+            if let isMirror = option?.isMirror {
+                transform = transform.scaledBy(x: -1, y: 1)
+            }
             layerInstructions.setTransform(transform, at: .zero)
         }
         compositionInstructions.layerInstructions = [layerInstructions]
